@@ -8,59 +8,50 @@
 
 #include <iostream>
 #include<fstream>
+#include<algorithm>
 using namespace std;
-struct message
+struct student
 {
-    char a;
-    string name[3];
-    string cname[7];
-    double score[];
+    char number[5];
+    char name[5];
+    double score[7];
+    double sum;
+    double max,min;
+    double ave;
+}stu[5];
+bool cmp(const double &s1,const double &s2){
+    return s1.ave>s2.ave;
 }
-
 int main()
 {
-    char a;
-    string name[3];
-    string cname;
-    double score[7];
-    double sum=0;
-    double ave=0;
-    ifstream file("/Users/s20181102931/Desktop/wrj.txt" );
-    cin>>a>>name;
-    ifstream mmm("/Users/s20181102931/Desktop/we.txt");
-    cin>>cname;
-//冒泡排序去掉最大值，最小值，取平均值；
-    for(int i=0;i<7;i++)
+    for(int t=0;t<5;t++)
     {
-        cin>>score[i];
-    }
-    for (int i=0;i<6;i++)
-    {
-        for (int j=0;j<6-i;j++)
+        cin>>stu[t].number;
+        cin>>stu[t].name;
+        stu[t].sum=stu[t].ave=0;
+        for(int i=0;i<7;i++)
         {
-            if (score[j] > score[j + 1])
-            {
-                int tem = score[j];
-                score[j] = score[j + 1];
-                score[j + 1] = temp;
-            }
+            cin>>stu[t].score[i];
+            stu[t].sum=stu[t].score[i]+stu[t].sum;
         }
-    }
-    for(int i=1;i<6;i++)
-    {
-        sum=sum+score[i];
-    }
-      ave=sum/7;
-    
-    
-    
-        if (file.is_open())
+        stu[t].max=stu[t].score[0];
+        stu[t].min=stu[t].score[0];
+        for(int j=0;j<7;j++)
         {
-            cout<<
-            file.close();
+            if(stu[t].score[j]>stu[t].max)
+                stu[t].max=stu[t].score[j];
+            if(stu[t].score[j]<stu[t].min)
+                stu[t].max=stu[t].score[j];
+            
         }
+          stu[t].sum= stu[t].sum- stu[t].max-stu[t].min;
+        for(int i=0;i<5;i++)
+        {
+            stu[t].ave=1.0*stu[t].sum/5;
         
-        return 0;
+        }
+        sort(stu,stu+5,cmp);
+    return 0;
     }
-
+}
 
